@@ -34,7 +34,7 @@ class FriendshipsController < ApplicationController
     friend_status.update(status: params[:status])
 
     if params[:status] == 'accept'
-  
+
       redirect_back(fallback_location: users_path, notice: 'Friend request Accepted')
     else
       redirect_back(fallback_location: users_path, notice: 'Friend request Rejected')
