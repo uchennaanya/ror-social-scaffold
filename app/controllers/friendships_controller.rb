@@ -34,7 +34,7 @@ class FriendshipsController < ApplicationController
     friend_status.update(status: params[:status])
 
     if params[:status] == 'accept'
-      # Friendship.create(user_id: params[:user], friend_id: params[:friend], status: params[:status])
+  
       redirect_back(fallback_location: users_path, notice: 'Friend request Accepted')
     else
       redirect_back(fallback_location: users_path, notice: 'Friend request Rejected')
