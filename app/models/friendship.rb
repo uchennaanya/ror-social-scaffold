@@ -1,4 +1,9 @@
 class Friendship < ApplicationRecord
+    after_initialize :set_defaults, unless: :persisted?
+
+    after_update :create_inverse, if: :inverse_record_nil?
+    after_destroy :destroy_inverse
+
   validates_uniqueness_of :user_id, scope: [:friend_id]
   belongs_to :user
   belongs_to :friend, class_name: 'User'
@@ -12,5 +17,28 @@ class Friendship < ApplicationRecord
     @friends = Friendship.they_are_friends(user_id: @user_id, friend_id: @friend_id).first
   end
   after_update do |friendship|
+  end
+
+  def set_defaults
+    self.confirmed = false if confirmed.nil?
+  end
+
+  def create_inverse
+    Friendship.create(user: friend, friend: user, confirmed: confirmed)
+  end
+
+  def destroy_inverse
+    ir = inverse_record
+    return if ir.nil?
+
+    ir.destroy
+  end
+
+  def inverse_record_nil?
+    inverse_record.nil?
+  end
+
+  def inverse_record
+    Friendship.where(user: friend, friend: user).first
   end
 end
