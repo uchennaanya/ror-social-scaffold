@@ -1,24 +1,42 @@
 require 'rails_helper'
 
 RSpec.describe Friendship, type: :model do
-  let(:user) { User.new(name: 'Doe', email: 'doe@mail.com', password: 'password') }
-  let(:friend) { User.new(name: 'Jon', email: 'jon@mail.com', password: 'password') }
-  let(:friendship) { Friendship.create(user: user, friend: friend) }
+  let(:user1) { User.create(name: 'user1', email: 'user1@hotmail.com', password: 'password') }
+  let(:user2) { User.create(name: 'user2', email: 'user2@hotmail.com', password: 'password') }
+  let(:new_friendship) { Friendship.create(user: user1, friend: user2) }
+  let(:new_invalid_friendship) { Friendship.create(user: user1) }
 
-  it 'creates a valid friendship' do
-    expect(friendship.valid?).to be true
-  end
+  describe 'Friendships can be created' do
+    it 'sets default value of false to confirmed' do
+      expect(new_friendship.confirmed).to be false
+    end
 
-  it 'sends a friendship correctly' do
-    expect(user.sent_requests.include?(friendship)).to be true
-  end
+    it 'checks if friendship is valid' do
+      expect(new_friendship).to be_valid
+      expect(user1.friendships.size).to eq(1)
+    end
 
-  it 'receives a friendship correctly' do
-    expect(friend.received_requests.include?(friendship)).to be true
-  end
+    it 'checks if friendship is invalid' do
+      expect(new_invalid_friendship.valid?).to be(false)
+    end
 
-  it 'creates a friendship through user' do
-    new_friendship = user.sent_requests.build(user: user, friend: friend)
-    expect(new_friendship.valid?).to be true
+    it 'checks if user have friends :)' do
+      new_friendship.confirmed = true
+      new_friendship.save
+      expect(user1.friends.size).to eq(1)
+    end
+
+    it 'checks if user have no friends :(' do
+      new_friendship.save
+      expect(user1.friends.size).to eq(0)
+    end
+
+    it 'create inverse friendship once confirmed' do
+      new_friendship.save
+      new_friendship.confirmed = true
+      new_friendship.save
+
+      expect(Friendship.where(user: new_friendship.friend, friend: new_friendship.user)).not_to be_nil
+    end
   end
 end
