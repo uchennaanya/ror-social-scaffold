@@ -1,8 +1,8 @@
 class Friendship < ApplicationRecord
-    after_initialize :set_defaults, unless: :persisted?
+  after_initialize :set_defaults, unless: :persisted?
 
-    after_update :create_inverse, if: :inverse_record_nil?
-    after_destroy :destroy_inverse
+  after_update :create_inverse, if: :inverse_record_nil?
+  after_destroy :destroy_inverse
 
   validates_uniqueness_of :user_id, scope: [:friend_id]
   belongs_to :user
