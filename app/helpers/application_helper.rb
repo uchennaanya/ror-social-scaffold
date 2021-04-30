@@ -1,4 +1,17 @@
 module ApplicationHelper
+  def ish_current_user(_user)
+    render partial: 'layouts/current' if current_user
+    render partial: 'layouts/not-current' unless current_user
+  end
+
+  def ish_notice
+    render partial: 'layouts/notice' if notice.present?
+  end
+
+  def ish_alert
+    render partial: 'layouts/alert' if alert.present?
+  end
+
   def menu_link_to(link_text, link_path)
     class_name = current_page?(link_path) ? 'menu-item active' : 'menu-item'
 
@@ -23,13 +36,7 @@ module ApplicationHelper
   def invite_or_pending_btn(user)
     return if current_user_or_friend?(user)
 
-    if current_user.pending_friends.include?(user)
-      'Friendship pending'
-    else
-      unless current_user.pending_friendship?(user)
-        button_to('Invite to friendship', user_friendships_path(user_id: user.id), method: :post)
-      end
-    end
+    'Friendship pending' if current_user.pending_friends.include?(user)
   end
 
   def accept_friendship_with_user(user)

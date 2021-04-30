@@ -1,19 +1,20 @@
 <section class="user-section">
-<div>
-<span>Pending friend requests <%= @user.friend_requests.count %> :</span>
-<% @user.friend_requests.each do |friendship| %>
-<p>
-  <%= friendship.user.name %>
-  <%= accept_friendship(friendship) %> <%= reject_friendship(friendship) %>
-</p>
-<% end %>
-</div>
-<br />
-<h2><%= "Name: #{@user.name} - " %> <span> <%= invite_or_pending_btn(@user) %></span></h2>
-<article class="timeline">
-<h3>Recent posts:</h3>
-<ul class="posts">
-  <%= render @posts %>
-</ul>
-</article>
+ 
+  <div>
+    <span>Pending friend requests <%= @user.friend_requests.count %> :</span>
+    <% @user.friend_requests.each do |friendship| %>
+    <p>
+      <%= friendship.user.name %>
+      <%= accept_friendship(friendship) %> <%= reject_friendship(friendship) %>
+    </p>
+    <% end %>
+  </div>
+  <br />
+  <h2><%= "Name: #{@user.name} - " %> <span> <%= invite_or_pending_btn(@user) %></span></h2>
+  <article class="timeline">
+    <h3>Recent posts:</h3>
+    <ul class="posts">
+      <%= render @posts %>
+    </ul>
+  </article>
 </section>

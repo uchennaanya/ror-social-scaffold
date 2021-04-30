@@ -1,10 +1,11 @@
 # Scaffold for social media app with Ruby on Rails
 
-> This repo includes intial code for social media app with basic styling. Its purpose is to be a starting point for Microverse students.
+> This repo includes intial code for social media app with basic styling. Its purpose is to be a starting point for Microverse students. I created a model with association and with features of friendship. Improved the
+friendship model by adding another instance of friendship model.
 
 ## Built With
 
-- Ruby v2.7.0
+- Ruby v2.7.2
 - Ruby on Rails v5.2.4
 
 ## Live Demo

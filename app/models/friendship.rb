@@ -19,6 +19,13 @@ class Friendship < ApplicationRecord
   after_update do |friendship|
   end
 
+  def confirm_friend
+    update_attributes(confirmed: true)
+    Friendship.create!(friend_id: user_id,
+                       user_id: friend_id,
+                       confirmed: true)
+  end
+
   def set_defaults
     self.confirmed = false if confirmed.nil?
   end
