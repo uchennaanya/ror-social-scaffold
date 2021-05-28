@@ -25,13 +25,15 @@ class FriendshipsController < ApplicationController
     Friendship.where(user_id: user, friend_id: friend)
   end
 
-  def reverse_frienship(data)
-    Friendship.create(user_id: data[:friend_id], friend_id: data[:user_id], status: data[:status])
+  def reverse_friendship(data)
+    Friendship.create(user_id: current_user.id, friend_id: data[:friend], status: 'accept')
   end
 
   def accept_or_reject_friend_request
     friend_status = Friendship.where(friend_id: current_user.id, user_id: params[:friend])
     friend_status.update(status: params[:status])
+
+    reverse_friendship(params)
 
     if params[:status] == 'accept'
       # Friendship.create(user_id: params[:user], friend_id: params[:friend], status: params[:status])
@@ -78,9 +80,11 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1
   # DELETE /friendships/1.json
   def destroy
+
     @friendship.destroy
+
     respond_to do |format|
-      format.html { redirect_to friendships_url, notice: 'Friendship was successfully destroyed.' }
+      format.html { redirect_to '/', notice: 'Friendship was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

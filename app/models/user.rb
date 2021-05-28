@@ -1,6 +1,5 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -13,7 +12,8 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :inverted_friendships, class_name: 'Friendship', foreign_key: :friend_id
 
-  has_many :friends, through: :friendships
+  has_many :confirmed_friendships, -> { where status: 'accept' }, class_name: "Friendship"
+  has_many :friends, through: :confirmed_friendships
 
   has_many :sent_requests, class_name: 'Friendship', dependent: :destroy, foreign_key: :user_id
   has_many :received_requests, class_name: 'Friendship', dependent: :destroy, foreign_key: :friend_id
