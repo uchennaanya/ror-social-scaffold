@@ -1,5 +1,4 @@
 class Friendship < ApplicationRecord
-
   validates_uniqueness_of :user_id, scope: [:friend_id]
   belongs_to :user
   belongs_to :friend, class_name: 'User'
@@ -13,7 +12,6 @@ class Friendship < ApplicationRecord
     @friends = Friendship.they_are_friends(user_id: @user_id, friend_id: @friend_id).first
   end
   after_update do |friendship|
-
   end
 end
 

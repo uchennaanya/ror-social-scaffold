@@ -80,7 +80,6 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1
   # DELETE /friendships/1.json
   def destroy
-
     @friendship.destroy
 
     respond_to do |format|
