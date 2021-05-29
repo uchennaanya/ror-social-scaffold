@@ -17,8 +17,7 @@ class User < ApplicationRecord
   has_many :sent_requests, class_name: 'Friendship', dependent: :destroy, foreign_key: :user_id
   has_many :received_requests, class_name: 'Friendship', dependent: :destroy, foreign_key: :friend_id
 
-
-  has_many :pending_friendships, -> { where confirmed: false }, class_name: "Friendship", foreign_key: "user_id"
+  has_many :pending_friendships, -> { where confirmed: false }, class_name: 'Friendship', foreign_key: 'user_id'
   has_many :pending_friends, through: :pending_friendships, source: :friend
 
   def friends_and_own_posts
