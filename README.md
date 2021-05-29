@@ -4,10 +4,14 @@
 
 ## Built With
 
-- Ruby v2.7.0
-- Ruby on Rails v5.2.4
+- Ruby v2.7.2
+- Ruby on Rails v5.2.6
 
 ## Live Demo
+
+<a href="https://ror-scafold.herokuapp.com/users/sign_in">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
 
 TBA
 
@@ -18,7 +22,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-Ruby: 2.6.3
+Ruby: 2.7.0
 Rails: 5.2.3
 Postgres: >=9.5
 
@@ -72,6 +76,10 @@ TBA
 ## Authors
 
 # Uchenna Anya
+- Github: [@uchennaanya](https://github.com/uchennaanya)
+- Twitter:[@matinsanya19](https://twitter.com/matinsanya19)
+- Linkedin: [Uchenna Martin Anya](https://linkedin.com/Uchenna-Anya)
+
 
 TBA
 
